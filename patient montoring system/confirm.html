@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Test</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    </head>
+    <body>
+        <form action="blah.php" class="confirm" method="get">
+            <input type="text" name="field1" value="" />
+            <button type="submit">Submit</button>
+        </form>
+        <div class="modal" style="display: none;">
+            <h1>Attention!!</h1>
+            <p>Please confirm this action</p>
+            <button type="button" class="action confirm">Confirm</button>
+            <button type="button" class="action cancel">Cancel</button>
+        </div>
+        <script>
+        $(function(){
+            // capture the form that triggered the action
+            var $form;
+            // can the form submit
+            var $cansend = false;
+
+            // show the modal on form submit
+            $('form.confirm').submit(function(){
+                $form = $(this);
+                if ($cansend == true)
+                {
+                    $cansend = false;
+                    return true;
+                }
+                $('.modal').show();
+                return false;
+            });
+
+            // which button got clicked in the modal
+            $('div.modal button.action').click(function(){
+                if ($(this).hasClass('confirm'))
+                {
+                    $cansend = true;
+                    $('div.modal').hide();
+                    $form.submit();
+                }
+                else
+                {
+                    $cansend = false;
+                    $('div.modal').hide();
+                }
+            });
+        });
+        </script>
+    </body>
+</html
